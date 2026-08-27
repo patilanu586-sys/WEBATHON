@@ -40,6 +40,27 @@
     box-sizing: border-box;
     font-family: 'Plus Jakarta Sans', sans-serif;
     scroll-behavior: smooth;
+
+    /* Hide scrollbars across all elements while keeping scrolling enabled */
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+*::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+    width: 0;
+    height: 0;
+}
+
+html, body {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+html::-webkit-scrollbar, body::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
 }
 
 body {
@@ -261,13 +282,16 @@ button:active,
 
 .nav-links a {
     text-decoration: none;
-    color: var(--text-dark);
+    color: #000000 !important;
     font-weight: 800;
     font-size: 0.95rem;
 }
 
+.nav-links a:visited,
+.nav-links a:hover,
+.nav-links a:active,
 .nav-links a.active {
-    color: var(--primary);
+    color: #000000 !important;
     text-decoration: underline;
 }
 
@@ -281,7 +305,7 @@ button:active,
     border: var(--cartoon-border);
     box-shadow: var(--cartoon-shadow-sm);
     background: #3a86ff;
-    color: #ffffff;
+    color: #000000 !important;
     padding: 0.4rem 0.8rem;
     border-radius: 50px;
     font-size: 0.85rem;
@@ -289,6 +313,10 @@ button:active,
     display: flex;
     align-items: center;
     gap: 0.5rem;
+}
+
+.user-badge span {
+    color: #000000 !important;
 }
 
 .btn-icon {
@@ -301,7 +329,7 @@ button:active,
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    color: var(--text-dark);
+    color: #000000 !important;
     font-size: 1rem;
 }
 
@@ -326,6 +354,7 @@ button:active,
     text-align: center;
     margin-bottom: 2.5rem;
     position: relative;
+    overflow: hidden;
 }
 
 .hero-section h1 {
@@ -348,12 +377,13 @@ button:active,
 .ascii-banner {
     font-family: 'Courier New', Courier, monospace !important;
     white-space: pre !important;
-    font-size: 15px;
-    line-height: 15px;
+    font-size: 12px;
+    line-height: 12px;
     letter-spacing: 0px;
     color: #090f43;
     opacity: 1;
     user-select: none;
+    overflow-x: auto;
     margin-bottom: 1.5rem;
 }
 
@@ -665,46 +695,4 @@ button:active,
     font-weight: 900;
     cursor: pointer;
     color: var(--text-dark);
-}
-/* ==========================================================================
-   3. NAVIGATION BAR
-   ========================================================================== */
-.navbar {
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    background: #ffffff;
-    border-bottom: var(--cartoon-border);
-    padding: 1rem 5%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.logo h2 {
-    font-size: 1.4rem;
-    font-weight: 800;
-    color: var(--text-dark);
-}
-
-.logo h2 span {
-    color: var(--primary);
-}
-
-.nav-links {
-    display: flex;
-    gap: 2rem;
-    list-style: none;
-}
-
-.nav-links a {
-    text-decoration: none;
-    color: #000000 !important; /* Forces link text to pure black */
-    font-weight: 800;
-    font-size: 0.95rem;
-}
-
-.nav-links a.active {
-    color: #000000 !important; /* Keeps Browse Catalog black even when active */
-    text-decoration: underline;
 }
