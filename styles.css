@@ -50,11 +50,12 @@ body {
     left: 0;
     width: 100vw;
     height: 100vh;
-    pointer-events: none;
+    pointer-events: none; /* Allows user to click and hover elements underneath */
     z-index: 0;
     opacity: 0.85;
 }
 
+/* Ensure main interactive sections sit above the canvas */
 .navbar, .hero-section, .container, .modal {
     position: relative;
     z-index: 1;
@@ -87,6 +88,7 @@ body {
     padding: 2.5rem;
     box-shadow: var(--shadow-lg);
     border: 1px solid rgba(255, 255, 255, 0.4);
+    animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .auth-header {
@@ -274,15 +276,14 @@ body {
 }
 
 .ascii-banner {
-    font-family: 'Courier New', Courier, monospace !important;
-    white-space: pre !important;
-    font-size: 8px;
-    line-height: 8px;
-    letter-spacing: 0px;
-    color: #b8bffe;
-    opacity: 0.8;
-    user-select: none;
-    overflow-x: auto;
+    font-family: 'Courier New', Courier, monospace !important; /* Forces fixed character width */
+    white-space: pre !important;                               /* Prevents breaking across lines */
+    font-size: 15px;
+    line-height: 15px;
+    letter-spacing: 0px;                                       /* Prevents horizontal distortion */
+    color: #090f43;
+    opacity: 1;
+    user-select: none;                                        /* Adds scrollbar if box is too narrow */
 }
 
 .ai-search-box {
@@ -526,6 +527,31 @@ body {
     background: #c7d2fe;
 }
 
+/* Advance to Next Stage Button Styling */
+.simulation-controls button:first-of-type {
+    background: #1e293b;
+    color: #ffffff;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: var(--radius-md);
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(79, 70, 229, 0.25);
+    transition: all 0.2s ease-in-out;
+}
+
+/* Hover and Active States */
+.simulation-controls button:first-of-type:hover {
+    background: #4f5da4;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(79, 70, 229, 0.35);
+}
+
+.simulation-controls button:first-of-type:active {
+    transform: translateY(0);
+}
+
 /* ==========================================================================
    7. IMPACT METRICS & ADMIN PANEL
    ========================================================================== */
@@ -556,6 +582,7 @@ body {
     padding: 1.5rem;
 }
 
+/* Admin List Styles */
 .admin-list {
     list-style: none;
     margin-top: 1rem;
@@ -569,9 +596,9 @@ body {
     border-bottom: 1px solid var(--border-color);
     font-size: 0.9rem;
     gap: 0.5rem;
-    transition: all 0.3s ease;
 }
 
+/* Styled Approve Button (Before Click) */
 .admin-list li button {
     background: #612D53;
     color: #ffffff;
@@ -585,15 +612,15 @@ body {
     transition: all 0.2s ease-in-out;
 }
 
+/* Hover & Active States */
 .admin-list li button:hover:not(:disabled) {
     background: #ad5796;
     transform: translateY(-1px);
     box-shadow: 0 4px 8px rgba(79, 70, 229, 0.3);
 }
 
-.admin-list li button:disabled {
-    background: #94a3b8;
-    cursor: not-allowed;
+.admin-list li button:active:not(:disabled) {
+    transform: translateY(0);
 }
 
 .admin-list li.warning { color: var(--accent-danger); }
@@ -655,23 +682,170 @@ body {
     cursor: pointer;
     color: var(--text-muted);
 }
-/* Add these styles to the bottom of styles.css */
 
-.login-page-body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+/* ==========================================================================
+   9. CARTOON / NEO-BRUTALISM OVERRIDE STYLES
+   ========================================================================== */
+
+/* Cartoon Theme Color & Style Palette */
+:root {
+    --primary: #ff5964;          /* Bubblegum Red/Pink */
+    --primary-color: #ff5964;
+    --primary-hover: #ff7882;
+    --secondary: #064726;        /* Vibrant Cartoon Green */
+    --secondary-color: #00d26a;
+    --accent: #ffb703;           /* Sunburst Yellow */
+    --danger: #ff2a6d;
+    --bg-light: #fff8e7;         /* Soft Cream / Comic Page Background */
+    --card-bg: #ffffff;
+    --text-dark: #111111;        /* Deep Outline Black */
+    --border-color: #000000;
+    --radius-lg: 20px;
+    --radius-md: 12px;
+    
+    /* Hard Cartoon Drop-Shadows */
+    --cartoon-border: 3px solid #000000;
+    --cartoon-shadow-sm: 3px 3px 0px #000000;
+    --cartoon-shadow-md: 5px 5px 0px #000000;
+    --cartoon-shadow-lg: 8px 8px 0px #000000;
 }
 
-.auth-card-standalone {
-    background: rgba(255, 255, 255, 0.96);
-    backdrop-filter: blur(16px);
-    border-radius: var(--radius-lg);
-    width: 100%;
-    max-width: 440px;
-    padding: 2.5rem;
-    box-shadow: var(--shadow-lg);
-    border: 1px solid rgba(255, 255, 255, 0.4);
+/* Global Font & Outline Overrides */
+body {
+    background-color: var(--bg-light) !important;
+    color: var(--text-dark) !important;
+    font-weight: 600;
+}
+
+/* Hard Cartoon Containers & Cards */
+.card, 
+.auth-card, 
+.modal-content, 
+.metric-card, 
+.hero-section, 
+.ai-search-box {
+    border: var(--cartoon-border) !important;
+    box-shadow: var(--cartoon-shadow-md) !important;
+    border-radius: var(--radius-lg) !important;
+    transition: transform 0.15s ease, box-shadow 0.15s ease !important;
+}
+
+/* Playful Hero Section */
+.hero-section {
+    background: linear-gradient(135deg, #ffb703 0%, #ff5964 100%) !important;
+    box-shadow: var(--cartoon-shadow-lg) !important;
+    color: #000000 !important;
+}
+
+.hero-section h1, 
+.hero-section p {
+    color: #000000 !important;
+    text-shadow: 1px 1px 0px #ffffff;
+}
+
+/* Cartoon Pop Inputs */
+input, select {
+    border: var(--cartoon-border) !important;
+    box-shadow: var(--cartoon-shadow-sm) !important;
+    border-radius: var(--radius-md) !important;
+    font-weight: 700 !important;
+    background: #ffffff !important;
+    color: #000000 !important;
+}
+
+input:focus, select:focus {
+    transform: translate(-2px, -2px);
+    box-shadow: var(--cartoon-shadow-md) !important;
+}
+
+/* Cartoon Interactive Buttons & Press Effects */
+button, 
+.btn-submit, 
+.btn-approve, 
+.btn-add-resource, 
+.btn-toggle-view,
+.ai-input-group button {
+    border: var(--cartoon-border) !important;
+    box-shadow: var(--cartoon-shadow-sm) !important;
+    border-radius: var(--radius-md) !important;
+    font-weight: 800 !important;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.1s ease !important;
+}
+
+/* Button Click/Press Animation */
+button:hover, 
+.btn-submit:hover, 
+.btn-approve:hover, 
+.btn-add-resource:hover {
+    transform: translate(-2px, -2px) !important;
+    box-shadow: var(--cartoon-shadow-md) !important;
+}
+
+button:active, 
+.btn-submit:active, 
+.btn-approve:active {
+    transform: translate(2px, 2px) !important;
+    box-shadow: 1px 1px 0px #000000 !important;
+}
+
+/* Specific Button Color Overrides */
+.btn-submit, .btn-add-resource {
+    background: var(--primary) !important;
+    color: #ffffff !important;
+}
+
+.btn-approve, .ai-input-group button {
+    background: var(--secondary) !important;
+    color: #ffffff !important;
+}
+
+.btn-flag {
+    background: var(--danger) !important;
+    color: #ffffff !important;
+    border: var(--cartoon-border) !important;
+    box-shadow: var(--cartoon-shadow-sm) !important;
+}
+
+/* Cartoon Badges & Tags */
+.card-tag {
+    border: 2px solid #000000 !important;
+    box-shadow: 2px 2px 0px #000000 !important;
+    font-weight: 800 !important;
+}
+
+.tag-rent { background: #3a86ff !important; color: #ffffff !important; }
+.tag-barter { background: #00d26a !important; color: #ffffff !important; }
+.tag-donate { background: #ffb703 !important; color: #000000 !important; }
+
+/* Navbar Styling */
+.navbar {
+    border-bottom: var(--cartoon-border) !important;
+    background: #ffffff !important;
+}
+
+.user-badge {
+    border: var(--cartoon-border) !important;
+    box-shadow: var(--cartoon-shadow-sm) !important;
+    background: #3a86ff !important;
+    color: #ffffff !important;
+}
+
+/* 10-Stage Lifecycle Stepper Cartoon Circles */
+.step-circle {
+    border: 2px solid #000000 !important;
+    box-shadow: 2px 2px 0px #000000 !important;
+    font-weight: 900 !important;
+}
+
+.step-item.active .step-circle {
+    background: var(--primary) !important;
+    color: #ffffff !important;
+}
+
+.step-item.completed .step-circle {
+    background: var(--secondary) !important;
+    color: #ffffff !important;
 }
