@@ -3,118 +3,161 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Campus Circular | Peer-to-Peer Resource Sharing</title>
+    <title>Campus Circular | Peer-to-Peer Resource Exchange Network</title>
+    <!-- Google Fonts & Font Awesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
-    <!-- Google Fonts & Font Awesome for Clean Icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <!-- Interactive ASCII Canvas Background -->
+    <!-- Interactive ASCII Canvas Animation Background -->
     <canvas id="asciiCanvas"></canvas>
-    <!-- Navigation Header -->
+
+    <!-- Modal 1: User Authentication System -->
+    <div class="auth-overlay" id="authOverlay">
+        <div class="auth-card">
+            <div class="auth-header">
+                <h1>Campus<span>Circular</span></h1>
+                <p>Peer-to-Peer Resource Exchange & Sharing Platform</p>
+            </div>
+            
+            <div class="auth-tabs">
+                <button class="auth-tab active" id="tabLogin" onclick="switchAuthTab('login')">Sign In</button>
+                <button class="auth-tab" id="tabRegister" onclick="switchAuthTab('register')">Register Account</button>
+            </div>
+
+            <!-- Login Form -->
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label for="loginEmail">Campus Email</label>
+                    <input type="email" id="loginEmail" required placeholder="e.g. alex@university.edu">
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" required placeholder="••••••••">
+                </div>
+                <button type="submit" class="btn-submit"><i class="fas fa-sign-in-alt"></i> Login to Campus Portal</button>
+            </form>
+
+            <!-- Registration Form -->
+            <form id="registerForm" onsubmit="handleRegister(event)" style="display: none;">
+                <div class="form-group">
+                    <label for="regName">Full Name</label>
+                    <input type="text" id="regName" required placeholder="Alex Johnson">
+                </div>
+                <div class="form-group">
+                    <label for="regDept">Department & Academic Year</label>
+                    <input type="text" id="regDept" required placeholder="e.g. Computer Science - Year 3">
+                </div>
+                <div class="form-group">
+                    <label for="regEmail">Campus Email</label>
+                    <input type="email" id="regEmail" required placeholder="alex@university.edu">
+                </div>
+                <div class="form-group">
+                    <label for="regPassword">Account Password</label>
+                    <input type="password" id="regPassword" required placeholder="••••••••">
+                </div>
+                <button type="submit" class="btn-submit"><i class="fas fa-user-plus"></i> Create Account & Join</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Navigation Header Bar -->
     <header class="navbar">
         <div class="logo">
             <h2>Campus<span>Circular</span></h2>
         </div>
-        <nav>
-            <ul>
-                <li><a href="#browse" class="active">Browse Items</a></li>
-                <li><a href="#lifecycle">Active Request Tracker</a></li>
-                <li><a href="#impact">Campus Impact</a></li>
-                <li><a href="#admin">Admin Panel</a></li>
-            </ul>
-        </nav>
-        <div class="user-profile-badge">
-            <span class="trust-score"><i class="fas fa-shield-alt"></i> Trust Score: <strong>98/100</strong></span>
-            <span class="user-name">Alex (CS - Yr 3)</span>
+        <ul class="nav-links">
+            <li><a href="#browse" class="active">Browse Catalog</a></li>
+            <li><a href="#lifecycle">Active Tracker</a></li>
+            <li><a href="#impact">Platform Impact</a></li>
+            <li><a href="#admin">Admin Control</a></li>
+        </ul>
+        <div class="user-nav-actions">
+            <div class="user-badge">
+                <i class="fas fa-shield-alt" style="color: var(--secondary);"></i>
+                <span id="navTrustScore">Trust Score: 98/100</span> | <span id="navUserName">Guest User</span>
+            </div>
+            <button onclick="handleLogout()" class="btn-icon" title="Logout"><i class="fas fa-sign-out-alt"></i></button>
         </div>
     </header>
 
-    <!-- Hero & AI Search Section -->
-    <section class="hero-section">
-        <div class="ascii-container">
-  ____   _   __  __  ____   _   _  ____    ____ ___ ____   ____  _   _ _        _    ____  
- / ___| / \ |  \/  |  _ \ | | | |/ ___|  / ___|_ _|  _ \ / ___|| | | | |      / \  |  _ \ 
-| |    / _ \| |\/| | |_) || | | |\___ \ | |    | || |_) | |    | | | | |     / _ \ | |_) |
-| |___/ ___ \ |  | |  __/ | |_| |___) || |___ | ||  _ <| |___ | |_| | |___ / ___ \|  _ < 
- \____/_/   \_\_|  |_|_|    \___/|____/  \____|___|_| \_\\____| \___/|_____/_/   \_\_| \_\
-</div>
-        <h1>From Ownership to Access</h1>
-        <p>Borrow calculators, cameras, tools, and textbooks from fellow students nearby.</p>
-        
-        <!-- AI Requirement Search -->
-        <div class="ai-search-box">
-            <label for="aiInput"><i class="fas fa-robot"></i> AI Natural Language Requirement Matching</label>
-            <div class="input-group">
-                <input type="text" id="aiInput" placeholder="e.g., 'I need to film a video project for my club tomorrow'">
-                <button id="aiSearchBtn" onclick="handleAISearch()">Find Resource Bundle</button>
-            </div>
-            <p class="hint">Try asking for bundles like <em>"electronics lab kit"</em> or <em>"movie setup"</em></p>
-        </div>
-    </section>
-
-    <!-- Main Content Container -->
+    <!-- Main Container Layout -->
     <main class="container">
-        
-        <!-- Filters & Traditional Search -->
+        <!-- Hero Section & AI Matcher -->
+        <section class="hero-section">
+            <div class="ascii-banner">
+<pre class="ascii-banner">
+  ____    _    __  __ ____  _   _ ____       ____ ___ ____   ____ _   _ _        _    ____  
+ / ___|  / \  |  \/  |  _ \| | | / ___|     / ___|_ _|  _ \ / ___| | | | |      / \  |  _ \ 
+| |     / _ \ | |\/| | |_) | | | \___ \    | |    | || |_) | |   | | | | |     / _ \ | |_) |
+| |___ / ___ \| |  | |  __/| |_| |___) |   | |___ | ||  _ <| |___| |_| | |___ / ___ \|  _ < 
+ \____/_/   \_\_|  |_|_|    \___/|____/     \____|___|_| \_\\____|\___/|_____/_/   \_\_| \_\
+</pre>        </div>
+            <h1>From Individual Ownership to Community Access</h1>
+            <p>Borrow lab equipment, calculators, camera gear, event kits, and textbooks directly from students near you.</p>
+
+            <div class="ai-search-box">
+                <label for="aiInput"><i class="fas fa-robot"></i>Simply type what you are looking for...</label>
+                <div class="ai-input-group">
+                    <input type="text" id="aiInput" placeholder="e.g. 'I need a film camera and video kit for my club project tomorrow'" onkeypress="if(event.key === 'Enter') handleAISearch()">
+                    <button onclick="handleAISearch()">Find Resource Bundle</button>
+                </div>
+                <p class="hint">Try prompts like <em>"electronics"</em>, <em>"photography"</em>, or <em>"academics"</em></p>
+            </div>
+        </section>
+
+        <!-- Catalog Filters and Resource Grid -->
         <section id="browse" class="catalog-section">
-            <div class="section-header">
-                <h2>Available Resources</h2>
-                <div class="filter-bar">
-                    <input type="text" id="keywordSearch" placeholder="Search resources..." onkeyup="filterItems()">
-                    <select id="categoryFilter" onchange="filterItems()">
+            <div class="catalog-controls">
+                <h2>Available Campus Resources</h2>
+                <div class="filter-group">
+                    <input type="text" id="searchInput" placeholder="Search keywords or owners..." oninput="applyFilters()">
+                    <select id="categoryFilter" onchange="applyFilters()">
                         <option value="all">All Categories</option>
-                        <option value="electronics">Electronics</option>
-                        <option value="academics">Academics & Books</option>
+                        <option value="electronics">Electronics & Hardware</option>
+                        <option value="academics">Academics & Textbooks</option>
                         <option value="photography">Photography & Media</option>
                         <option value="sports">Sports & Events</option>
                     </select>
-                    <select id="sortBy" onchange="filterItems()">
-                        <option value="trust">Sort by: Trust Score</option>
-                        <option value="distance">Sort by: Distance</option>
-                        <option value="price">Sort by: Fee (Low to High)</option>
+                    <select id="modeFilter" onchange="applyFilters()">
+                        <option value="all">All Exchange Types</option>
+                        <option value="rent">Rentals</option>
+                        <option value="barter">Direct Barters</option>
+                        <option value="donate">Free Community Gifts</option>
+                    </select>
+                    <button class="btn-add-resource" onclick="openCreateModal()"><i class="fas fa-plus"></i> List Item</button>
+                </div>
+            </div>
+
+            <div class="resource-grid" id="resourceGrid">
+                <!-- JavaScript populates listings dynamically here -->
+            </div>
+        </section>
+
+        <!-- Dynamic Multi-Item Borrowing Lifecycle Tracker -->
+        <section id="lifecycle" class="lifecycle-section">
+            <div class="section-title-bar" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                <h2>Active Requests & Borrowing Tracker (<span id="trackerCount">0</span>)</h2>
+                <div class="tracker-controls" style="display: flex; gap: 10px;">
+                    <input type="text" id="trackerSearch" placeholder="Filter active items..." oninput="renderTrackerList()" style="padding: 6px 12px; border-radius: 6px; border: 1px solid #ccc;">
+                    <select id="trackerStatusFilter" onchange="renderTrackerList()" style="padding: 6px 12px; border-radius: 6px; border: 1px solid #ccc;">
+                        <option value="All">All Statuses</option>
+                        <option value="Pending">Pending</option>
+                        <option value="Accepted">Accepted</option>
+                        <option value="In Handover">In Handover</option>
+                        <option value="Returned">Returned</option>
                     </select>
                 </div>
             </div>
-
-            <!-- Dynamic Resource Cards Container -->
-            <div class="resource-grid" id="resourceGrid">
-                <!-- Javascript will populate items dynamically here -->
+            
+            <!-- Dynamic Tracker Cards List Container -->
+            <div id="trackerCardsContainer" class="tracker-grid" style="display: flex; flex-direction: column; gap: 20px;">
+                <!-- JavaScript renders user requested items and 'View More' pagination dynamically here -->
             </div>
         </section>
 
-        <!-- Borrowing Lifecycle Tracking Section -->
-        <section id="lifecycle" class="lifecycle-section">
-            <h2>Borrowing Lifecycle Tracker</h2>
-            <div class="card lifecycle-card">
-                <div class="active-item-info" id="trackedItemHeader">
-                    <h3>Current Request: Sony DSLR Camera Kit</h3>
-                    <p>Owner: <strong>Sarah M.</strong> | Return Due: <strong>Tomorrow, 5:00 PM</strong></p>
-                </div>
-
-                <!-- Step Visualizer -->
-                <div class="stepper-wrapper">
-                    <div class="stepper-item completed" id="step-available"><div class="step-counter">1</div><div class="step-name">Available</div></div>
-                    <div class="stepper-item completed" id="step-requested"><div class="step-counter">2</div><div class="step-name">Requested</div></div>
-                    <div class="stepper-item active" id="step-accepted"><div class="step-counter">3</div><div class="step-name">Accepted</div></div>
-                    <div class="stepper-item" id="step-handover"><div class="step-counter">4</div><div class="step-name">Handover</div></div>
-                    <div class="stepper-item" id="step-borrowed"><div class="step-counter">5</div><div class="step-name">Borrowed</div></div>
-                    <div class="stepper-item" id="step-returndue"><div class="step-counter">6</div><div class="step-name">Return Due</div></div>
-                    <div class="stepper-item" id="step-returned"><div class="step-counter">7</div><div class="step-name">Returned</div></div>
-                    <div class="stepper-item" id="step-settlement"><div class="step-counter">8</div><div class="step-name">Settlement</div></div>
-                </div>
-
-                <!-- Simulation Controls -->
-                <div class="simulation-controls">
-                    <p><strong>Simulation Controls (Hackathon Demo):</strong> Advance state manually to test conditions and fees.</p>
-                    <button onclick="advanceLifecycle()">Advance to Next Stage</button>
-                    <button onclick="resetLifecycle()" class="btn-secondary">Reset Stage</button>
-                </div>
-            </div>
-        </section>
-
-        <!-- Campus Impact Dashboard -->
+        <!-- Platform Impact Metrics -->
         <section id="impact" class="impact-section">
             <h2>Campus Impact Dashboard</h2>
             <div class="metrics-grid">
@@ -125,51 +168,103 @@
                 </div>
                 <div class="metric-card">
                     <i class="fas fa-handshake"></i>
-                    <h3 id="metricExchanges">482</h3>
+                    <h3 id="metricExchanges">485</h3>
                     <p>Successful Exchanges</p>
                 </div>
                 <div class="metric-card">
                     <i class="fas fa-piggy-bank"></i>
-                    <h3 id="metricSaved">₹1,85,000</h3>
+                    <h3 id="metricSaved">₹1,86,350</h3>
                     <p>Money Saved by Students</p>
                 </div>
                 <div class="metric-card">
                     <i class="fas fa-recycle"></i>
                     <h3 id="metricReused">310 kg</h3>
-                    <p>E-waste & Items Reused</p>
+                    <p>E-waste & Goods Reused</p>
                 </div>
             </div>
         </section>
 
-        <!-- Admin Dashboard Section -->
+        <!-- Admin Control Panel Section -->
         <section id="admin" class="admin-section">
-            <h2>Admin Panel & Platform Control</h2>
+            <h2>Admin Control Panel & Verification</h2>
             <div class="admin-grid">
-                <div class="card">
-                    <h3>Pending Item Approvals</h3>
+                <div class="card admin-card">
+                    <h3>Pending Listing Approvals</h3>
                     <ul id="pendingApprovalsList" class="admin-list">
-                        <li>TI-84 Plus Calculator (Submitted by Rohan P.) <button onclick="approveItem(this)">Approve</button></li>
-                        <li>Electric Guitar (Submitted by Priyesh S.) <button onclick="approveItem(this)">Approve</button></li>
+                        <li>
+                            <span>TI-84 Plus Calculator (Submitted by Rohan P.)</span>
+                            <button onclick="approveItem(this)" class="btn-approve">Approve</button>
+                        </li>
+                        <li>
+                            <span>Electric Guitar & Amplifier (Submitted by Priyesh S.)</span>
+                            <button onclick="approveItem(this)" class="btn-approve">Approve</button>
+                        </li>
                     </ul>
                 </div>
-                <div class="card">
-                    <h3>Disputes & Overdue Items</h3>
+                <div class="card admin-card">
+                    <h3>Disputes & Flagged Activity</h3>
                     <ul class="admin-list">
-                        <li class="warning">Tripod Stand - Overdue by 2 days (Borrower: Vikram) <button onclick="flagUser()">Flag Borrower</button></li>
+                        <li class="warning">
+                            <span>Tripod Stand - Overdue by 2 days (Borrower: Vikram)</span>
+                            <button onclick="flagUser()" class="btn-flag">Flag Borrower</button>
+                        </li>
                     </ul>
                 </div>
             </div>
         </section>
-
     </main>
 
-    <!-- Modal for Item Details & Fee Calculation -->
-    <div id="itemModal" class="modal">
+    <!-- Modal 2: Item Details & Exchange Proposal -->
+    <div class="modal-overlay" id="borrowModal">
         <div class="modal-content">
-            <span class="close-btn" onclick="closeModal()">&times;</span>
-            <div id="modalDetails">
-                <!-- Javascript will inject fee breakdown and condition checklist here -->
+            <span class="close-btn" onclick="closeBorrowModal()">&times;</span>
+            <div id="borrowModalDetails">
+                <!-- Javascript injects financial breakdown / barter rules here -->
             </div>
+        </div>
+    </div>
+
+    <!-- Modal 3: List New Resource Form -->
+    <div class="modal-overlay" id="createModal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeCreateModal()">&times;</span>
+            <h2>List Your Resource</h2>
+            <form onsubmit="handleCreateResource(event)">
+                <div class="form-group">
+                    <label for="newTitle">Resource Title</label>
+                    <input type="text" id="newTitle" required placeholder="e.g. DSLR Camera, TI-84 Graphic Calculator...">
+                </div>
+                <div class="form-group">
+                    <label for="newCategory">Category</label>
+                    <select id="newCategory" required>
+                        <option value="electronics">Electronics & Hardware</option>
+                        <option value="academics">Academics & Textbooks</option>
+                        <option value="photography">Photography & Media</option>
+                        <option value="sports">Sports & Events</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="newMode">Exchange Mode</label>
+                    <select id="newMode" required onchange="toggleBarterInput(this.value)">
+                        <option value="rent">Rental (Fee based)</option>
+                        <option value="barter">Barter (Item / Skill Exchange)</option>
+                        <option value="donate">Free Campus Donation</option>
+                    </select>
+                </div>
+                <div class="form-group" id="feeInputGroup">
+                    <label for="newFee">Daily Fee (₹)</label>
+                    <input type="number" id="newFee" value="50">
+                </div>
+                <div class="form-group" id="barterInputGroup" style="display: none;">
+                    <label for="newBarterPref">Preferred Barter Request</label>
+                    <input type="text" id="newBarterPref" placeholder="e.g. Looking for Tripod, Drone, or Lab Coat">
+                </div>
+                <div class="form-group">
+                    <label for="newImg">Image URL</label>
+                    <input type="url" id="newImg" placeholder="https://images.unsplash.com/...">
+                </div>
+                <button type="submit" class="btn-submit"><i class="fas fa-check-circle"></i> Publish Resource Listing</button>
+            </form>
         </div>
     </div>
 
