@@ -326,7 +326,6 @@ button:active,
     text-align: center;
     margin-bottom: 2.5rem;
     position: relative;
-    overflow: hidden;
 }
 
 .hero-section h1 {
@@ -349,13 +348,12 @@ button:active,
 .ascii-banner {
     font-family: 'Courier New', Courier, monospace !important;
     white-space: pre !important;
-    font-size: 12px;
-    line-height: 12px;
+    font-size: 15px;
+    line-height: 15px;
     letter-spacing: 0px;
     color: #090f43;
     opacity: 1;
     user-select: none;
-    overflow-x: auto;
     margin-bottom: 1.5rem;
 }
 
@@ -667,4 +665,46 @@ button:active,
     font-weight: 900;
     cursor: pointer;
     color: var(--text-dark);
+}
+/* ==========================================================================
+   3. NAVIGATION BAR
+   ========================================================================== */
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: #ffffff;
+    border-bottom: var(--cartoon-border);
+    padding: 1rem 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo h2 {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--text-dark);
+}
+
+.logo h2 span {
+    color: var(--primary);
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #000000 !important; /* Forces link text to pure black */
+    font-weight: 800;
+    font-size: 0.95rem;
+}
+
+.nav-links a.active {
+    color: #000000 !important; /* Keeps Browse Catalog black even when active */
+    text-decoration: underline;
 }
