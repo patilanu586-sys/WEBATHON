@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Circular | Admin Management Console</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="logo">
+            <h2>Campus<span>Circular Admin</span></h2>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Main Catalog</a></li>
+            <li><a href="admin.html" class="active">Admin Dashboard</a></li>
+        </ul>
+        <div class="user-nav-actions">
+            <div class="user-badge" style="background: #fee2e2; color: #991b1b;">
+                <i class="fas fa-user-shield"></i>
+                <span id="navUserName">System Administrator</span>
+            </div>
+            <button onclick="handleLogout()" class="btn-icon" title="Logout"><i class="fas fa-sign-out-alt"></i></button>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="admin-section" style="margin-top: 1rem;">
+            <h2><i class="fas fa-shield-alt"></i> Platform Verification & Moderation Console</h2>
+            <p style="color: #64748b; margin-bottom: 20px;">Review user requests, resolve item damage disputes, and verify incoming inventory listings.</p>
+
+            <div class="admin-grid">
+                <!-- Listing Verification -->
+                <div class="card admin-card">
+                    <h3><i class="fas fa-tasks"></i> Pending Catalog Approvals</h3>
+                    <ul id="pendingApprovalsList" class="admin-list">
+                        <!-- Javascript dynamically renders listings -->
+                    </ul>
+                </div>
+
+                <!-- Disputes & Incident Management -->
+                <div class="card admin-card">
+                    <h3><i class="fas fa-exclamation-triangle" style="color: var(--danger);"></i> Active Flagged Disputes</h3>
+                    <ul id="adminDisputesList" class="admin-list">
+                        <!-- Javascript dynamically renders disputes -->
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

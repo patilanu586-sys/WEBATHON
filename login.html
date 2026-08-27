@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Circular | Authentication Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="login-page-body">
+    <div class="auth-card-standalone">
+        <div class="auth-header">
+            <h1>Campus<span>Circular</span></h1>
+            <p>Peer-to-Peer Campus Exchange Network</p>
+        </div>
+        
+        <div class="auth-tabs">
+            <button class="auth-tab active" id="tabLogin" onclick="switchAuthTab('login')">Sign In</button>
+            <button class="auth-tab" id="tabRegister" onclick="switchAuthTab('register')">Register Account</button>
+        </div>
+
+        <!-- Login Form -->
+        <form id="loginForm" onsubmit="handleLogin(event)">
+            <div class="form-group">
+                <label for="loginEmail">Campus Email</label>
+                <input type="email" id="loginEmail" required placeholder="e.g. alex@university.edu or admin@university.edu">
+            </div>
+            <div class="form-group">
+                <label for="loginPassword">Password</label>
+                <input type="password" id="loginPassword" required placeholder="••••••••">
+            </div>
+            <button type="submit" class="btn-submit"><i class="fas fa-sign-in-alt"></i> Login to Portal</button>
+        </form>
+
+        <!-- Registration Form -->
+        <form id="registerForm" onsubmit="handleRegister(event)" style="display: none;">
+            <div class="form-group">
+                <label for="regName">Full Name</label>
+                <input type="text" id="regName" required placeholder="Fiza Bardanwala">
+            </div>
+            <div class="form-group">
+                <label for="regDept">Department & Year</label>
+                <input type="text" id="regDept" required placeholder="Computer Engineering - Year 3">
+            </div>
+            <div class="form-group">
+                <label for="regEmail">Campus Email</label>
+                <input type="email" id="regEmail" required placeholder="fiza@university.edu">
+            </div>
+            <div class="form-group">
+                <label for="regPassword">Password</label>
+                <input type="password" id="regPassword" required placeholder="••••••••">
+            </div>
+            <button type="submit" class="btn-submit"><i class="fas fa-user-plus"></i> Create Account</button>
+        </form>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
