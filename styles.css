@@ -2,18 +2,18 @@
    1. CSS VARIABLES & BASE SETUP
    ========================================================================== */
 :root {
-    --primary-color: #4f46e5;
-    --primary-hover: #4338ca;
-    --secondary-color: #10b981;
+    --primary-color: #601D49;
+    --primary-hover: #EA9D9D;
+    --secondary-color: #12a373;
     --dark-bg: #0f172a;
-    --card-bg: rgba(255, 255, 255, 0.9);
+    --card-bg:#FFEBB8;
     --glass-bg: rgba(255, 255, 255, 0.7);
     --glass-border: rgba(255, 255, 255, 0.3);
     --text-dark: #1e293b;
     --text-muted: #64748b;
     --border-color: #e2e8f0;
     --accent-warning: #f59e0b;
-    --accent-danger: #ef4444;
+    --accent-danger: #d31d1d;
     --radius-lg: 16px;
     --radius-md: 10px;
     --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
@@ -95,7 +95,7 @@ body {
    3. HERO SECTION & ASCII ANIMATION
    ========================================================================== */
 .hero-section {
-    background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+    background: linear-gradient(135deg, #262626 0%, #612D53 100%);
     color: white;
     text-align: center;
     padding: 3rem 1rem 4rem;
@@ -121,7 +121,7 @@ body {
     white-space: pre;
     font-size: 8px;
     line-height: 8px;
-    color: #818cf8;
+    color: #b8bffe;
     margin-bottom: 1.5rem;
     opacity: 0.8;
     user-select: none;
@@ -174,7 +174,7 @@ body {
 }
 
 .input-group button:hover {
-    background: #059669;
+    background: #17b986;
     transform: translateY(-2px);
 }
 
@@ -429,6 +429,30 @@ body {
     cursor: pointer;
     font-weight: 600;
 }
+/* Advance to Next Stage Button Styling */
+.simulation-controls button:first-of-type {
+    background: #1e293b;
+    color: #ffffff;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: var(--radius-md);
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(79, 70, 229, 0.25);
+    transition: all 0.2s ease-in-out;
+}
+
+/* Hover and Active States */
+.simulation-controls button:first-of-type:hover {
+    background:#4f5da4;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(79, 70, 229, 0.35);
+}
+
+.simulation-controls button:first-of-type:active {
+    transform: translateY(0);
+}
 
 /* ==========================================================================
    7. IMPACT METRICS & ADMIN PANEL
@@ -475,6 +499,7 @@ body {
     padding: 1.5rem;
 }
 
+/* Admin List Styles */
 .admin-list {
     list-style: none;
     margin-top: 1rem;
@@ -487,6 +512,31 @@ body {
     padding: 0.75rem 0;
     border-bottom: 1px solid var(--border-color);
     font-size: 0.9rem;
+}
+
+/* Styled Approve Button (Before Click) */
+.admin-list li button {
+    background:#612D53;
+    color: #ffffff;
+    border: none;
+    padding: 0.4rem 0.9rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(79, 70, 229, 0.2);
+    transition: all 0.2s ease-in-out;
+}
+
+/* Hover & Active States */
+.admin-list li button:hover:not(:disabled) {
+    background: #ad5796;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(79, 70, 229, 0.3);
+}
+
+.admin-list li button:active:not(:disabled) {
+    transform: translateY(0);
 }
 
 .admin-list li.warning { color: var(--accent-danger); }
@@ -548,16 +598,7 @@ body {
 /* ==========================================================================
    INTERACTIVE ASCII BACKGROUND CANVAS
    ========================================================================== */
-#asciiCanvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    pointer-events: none; /* Allows user to click and hover elements underneath */
-    z-index: 0;
-    opacity: 0.85;
-}
+
 
 /* Ensure main interactive sections sit above the canvas */
 .navbar, .hero-section, .container, .modal {
