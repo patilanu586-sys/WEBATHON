@@ -1,7 +1,7 @@
 # WEBATHON
 Student marketplace website
 
-This is our 5-hour Webathon Project and we have built it using HTML, CSS, and JavaSript eaturing a bold neo-brutalist cartoon aesthetic. The project features interactive resource cataloging, dynamic modal overlays, smooth hidden-scrollbar UI containers, and a custom CSS design system. 
+This is our 5-hour Webathon Project and we have built it using HTML, CSS, and JavaSript featuring a bold neo-brutalist cartoon aesthetic. The project features interactive resource cataloging, dynamic modal overlays, smooth hidden-scrollbar UI containers, and a custom CSS design system. 
 
 Campus Circular is a resource-sharing digital platform for a college community that enables students to discover, share, lend, borrow, donate, and request resources. Our project consist of: 
 
