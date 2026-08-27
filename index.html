@@ -3,173 +3,201 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Campus Circular | Peer-to-Peer Resource Sharing</title>
+    <title>Campus Circular | Peer-to-Peer Resource Exchange Network</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
-    <!-- Google Fonts & Font Awesome for Clean Icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <!-- Interactive ASCII Canvas Background -->
     <canvas id="asciiCanvas"></canvas>
-    <!-- Navigation Header -->
+
+    <!-- Header Navbar -->
     <header class="navbar">
         <div class="logo">
             <h2>Campus<span>Circular</span></h2>
         </div>
-        <nav>
-            <ul>
-                <li><a href="#browse" class="active">Browse Items</a></li>
-                <li><a href="#lifecycle">Active Request Tracker</a></li>
-                <li><a href="#impact">Campus Impact</a></li>
-                <li><a href="#admin">Admin Panel</a></li>
-            </ul>
-        </nav>
-        <div class="user-profile-badge">
-            <span class="trust-score"><i class="fas fa-shield-alt"></i> Trust Score: <strong>98/100</strong></span>
-            <span class="user-name">Alex (CS - Yr 3)</span>
+        <ul class="nav-links">
+            <li><a href="#browse" class="active">Browse Catalog</a></li>
+            <li><a href="#lifecycle">Active Tracker</a></li>
+            <li><a href="#impact">Platform Impact</a></li>
+            <li><a href="admin.html">Admin Console</a></li>
+        </ul>
+        <div class="user-nav-actions">
+            <div class="user-badge">
+                <i class="fas fa-shield-alt" style="color: var(--secondary);"></i>
+                <span id="navTrustScore">Trust Score: 0/100</span> | <span id="navUserName">Guest User</span>
+            </div>
+            <button onclick="window.location.href='login.html'" class="btn-icon" title="Login / Switch User"><i class="fas fa-user-circle"></i></button>
+            <button onclick="handleLogout()" class="btn-icon" title="Logout"><i class="fas fa-sign-out-alt"></i></button>
         </div>
     </header>
 
-    <!-- Hero & AI Search Section -->
-    <section class="hero-section">
-        <div class="ascii-container">
-  ____   _   __  __  ____   _   _  ____    ____ ___ ____   ____  _   _ _        _    ____  
- / ___| / \ |  \/  |  _ \ | | | |/ ___|  / ___|_ _|  _ \ / ___|| | | | |      / \  |  _ \ 
-| |    / _ \| |\/| | |_) || | | |\___ \ | |    | || |_) | |    | | | | |     / _ \ | |_) |
-| |___/ ___ \ |  | |  __/ | |_| |___) || |___ | ||  _ <| |___ | |_| | |___ / ___ \|  _ < 
- \____/_/   \_\_|  |_|_|    \___/|____/  \____|___|_| \_\\____| \___/|_____/_/   \_\_| \_\
-</div>
-        <h1>From Ownership to Access</h1>
-        <p>Borrow calculators, cameras, tools, and textbooks from fellow students nearby.</p>
-        
-        <!-- AI Requirement Search -->
-        <div class="ai-search-box">
-            <label for="aiInput"><i class="fas fa-robot"></i> AI Natural Language Requirement Matching</label>
-            <div class="input-group">
-                <input type="text" id="aiInput" placeholder="e.g., 'I need to film a video project for my club tomorrow'">
-                <button id="aiSearchBtn" onclick="handleAISearch()">Find Resource Bundle</button>
-            </div>
-            <p class="hint">Try asking for bundles like <em>"electronics lab kit"</em> or <em>"movie setup"</em></p>
-        </div>
-    </section>
-
-    <!-- Main Content Container -->
     <main class="container">
-        
-        <!-- Filters & Traditional Search -->
+        <!-- Hero Banner -->
+        <section class="hero-section">
+            <div class="ascii-banner">
+<pre class="ascii-banner">
+  ____    _    __  __ ____  _   _ ____       ____ ___ ____   ____ _   _ _        _    ____  
+ / ___|  / \  |  \/  |  _ \| | | / ___|     / ___|_ _|  _ \ / ___| | | | |      / \  |  _ \ 
+| |     / _ \ | |\/| | |_) | | | \___ \    | |    | || |_) | |   | | | | |     / _ \ | |_) |
+| |___ / ___ \| |  | |  __/| |_| |___) |   | |___ | ||  _ <| |___| |_| | |___ / ___ \|  _ < 
+ \____/_/   \_\_|  |_|_|    \___/|____/     \____|___|_| \_\\____|\___/|_____/_/   \_\_| \_\
+</pre>
+            </div>
+            <h1>From Individual Ownership to Community Access</h1>
+            <p>Borrow lab equipment, calculators, camera gear, event kits, and textbooks directly from campus peers.</p>
+
+            <div class="ai-search-box">
+                <label for="aiInput"><i class="fas fa-robot"></i> Search items or equipment...</label>
+                <div class="ai-input-group">
+                    <input type="text" id="aiInput" placeholder="e.g. 'Raspberry Pi or Camera kit'" onkeypress="if(event.key === 'Enter') handleAISearch()">
+                    <button onclick="handleAISearch()">Find Resource</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Catalog Section -->
         <section id="browse" class="catalog-section">
-            <div class="section-header">
-                <h2>Available Resources</h2>
-                <div class="filter-bar">
-                    <input type="text" id="keywordSearch" placeholder="Search resources..." onkeyup="filterItems()">
-                    <select id="categoryFilter" onchange="filterItems()">
+            <div class="catalog-controls">
+                <h2>Available Campus Resources</h2>
+                <div class="filter-group">
+                    <input type="text" id="searchInput" placeholder="Search keywords..." oninput="applyFilters()">
+                    <select id="categoryFilter" onchange="applyFilters()">
                         <option value="all">All Categories</option>
-                        <option value="electronics">Electronics</option>
-                        <option value="academics">Academics & Books</option>
+                        <option value="electronics">Electronics & Hardware</option>
+                        <option value="academics">Academics & Textbooks</option>
                         <option value="photography">Photography & Media</option>
                         <option value="sports">Sports & Events</option>
                     </select>
-                    <select id="sortBy" onchange="filterItems()">
-                        <option value="trust">Sort by: Trust Score</option>
-                        <option value="distance">Sort by: Distance</option>
-                        <option value="price">Sort by: Fee (Low to High)</option>
+                    <select id="modeFilter" onchange="applyFilters()">
+                        <option value="all">All Modes</option>
+                        <option value="rent">Rentals</option>
+                        <option value="barter">Barters</option>
+                        <option value="donate">Free Donations</option>
                     </select>
+                    <select id="sortFilter" onchange="applyFilters()">
+                        <option value="suitability">Smart Rank: Suitability</option>
+                        <option value="distance">Nearest Distance</option>
+                        <option value="trust">Owner Trust Score</option>
+                        <option value="charges">Lowest Fee</option>
+                    </select>
+                    <button class="btn-add-resource" onclick="openCreateModal()"><i class="fas fa-plus"></i> List Item</button>
                 </div>
             </div>
 
-            <!-- Dynamic Resource Cards Container -->
-            <div class="resource-grid" id="resourceGrid">
-                <!-- Javascript will populate items dynamically here -->
-            </div>
+            <div class="resource-grid" id="resourceGrid"></div>
         </section>
 
-        <!-- Borrowing Lifecycle Tracking Section -->
+        <!-- Active Tracker -->
         <section id="lifecycle" class="lifecycle-section">
-            <h2>Borrowing Lifecycle Tracker</h2>
-            <div class="card lifecycle-card">
-                <div class="active-item-info" id="trackedItemHeader">
-                    <h3>Current Request: Sony DSLR Camera Kit</h3>
-                    <p>Owner: <strong>Sarah M.</strong> | Return Due: <strong>Tomorrow, 5:00 PM</strong></p>
-                </div>
-
-                <!-- Step Visualizer -->
-                <div class="stepper-wrapper">
-                    <div class="stepper-item completed" id="step-available"><div class="step-counter">1</div><div class="step-name">Available</div></div>
-                    <div class="stepper-item completed" id="step-requested"><div class="step-counter">2</div><div class="step-name">Requested</div></div>
-                    <div class="stepper-item active" id="step-accepted"><div class="step-counter">3</div><div class="step-name">Accepted</div></div>
-                    <div class="stepper-item" id="step-handover"><div class="step-counter">4</div><div class="step-name">Handover</div></div>
-                    <div class="stepper-item" id="step-borrowed"><div class="step-counter">5</div><div class="step-name">Borrowed</div></div>
-                    <div class="stepper-item" id="step-returndue"><div class="step-counter">6</div><div class="step-name">Return Due</div></div>
-                    <div class="stepper-item" id="step-returned"><div class="step-counter">7</div><div class="step-name">Returned</div></div>
-                    <div class="stepper-item" id="step-settlement"><div class="step-counter">8</div><div class="step-name">Settlement</div></div>
-                </div>
-
-                <!-- Simulation Controls -->
-                <div class="simulation-controls">
-                    <p><strong>Simulation Controls (Hackathon Demo):</strong> Advance state manually to test conditions and fees.</p>
-                    <button onclick="advanceLifecycle()">Advance to Next Stage</button>
-                    <button onclick="resetLifecycle()" class="btn-secondary">Reset Stage</button>
+            <div class="section-title-bar" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                <h2>Active Requests & Borrowing Tracker (<span id="trackerCount">0</span>)</h2>
+                <div class="tracker-controls" style="display: flex; gap: 10px;">
+                    <input type="text" id="trackerSearch" placeholder="Filter active items..." oninput="renderTrackerList()" style="padding: 6px 12px; border-radius: 6px; border: 1px solid #ccc;">
                 </div>
             </div>
+            <div id="trackerCardsContainer" class="tracker-grid" style="display: flex; flex-direction: column; gap: 20px;"></div>
         </section>
 
-        <!-- Campus Impact Dashboard -->
+        <!-- Impact Section -->
         <section id="impact" class="impact-section">
             <h2>Campus Impact Dashboard</h2>
             <div class="metrics-grid">
                 <div class="metric-card">
                     <i class="fas fa-users"></i>
-                    <h3 id="metricUsers">1,240</h3>
-                    <p>Active Campus Members</p>
+                    <h3>1,240</h3>
+                    <p>Active Members</p>
                 </div>
                 <div class="metric-card">
                     <i class="fas fa-handshake"></i>
-                    <h3 id="metricExchanges">482</h3>
-                    <p>Successful Exchanges</p>
+                    <h3>485</h3>
+                    <p>Exchanges Completed</p>
                 </div>
                 <div class="metric-card">
                     <i class="fas fa-piggy-bank"></i>
-                    <h3 id="metricSaved">₹1,85,000</h3>
-                    <p>Money Saved by Students</p>
-                </div>
-                <div class="metric-card">
-                    <i class="fas fa-recycle"></i>
-                    <h3 id="metricReused">310 kg</h3>
-                    <p>E-waste & Items Reused</p>
+                    <h3>₹1,86,350</h3>
+                    <p>Money Saved</p>
                 </div>
             </div>
         </section>
-
-        <!-- Admin Dashboard Section -->
-        <section id="admin" class="admin-section">
-            <h2>Admin Panel & Platform Control</h2>
-            <div class="admin-grid">
-                <div class="card">
-                    <h3>Pending Item Approvals</h3>
-                    <ul id="pendingApprovalsList" class="admin-list">
-                        <li>TI-84 Plus Calculator (Submitted by Rohan P.) <button onclick="approveItem(this)">Approve</button></li>
-                        <li>Electric Guitar (Submitted by Priyesh S.) <button onclick="approveItem(this)">Approve</button></li>
-                    </ul>
-                </div>
-                <div class="card">
-                    <h3>Disputes & Overdue Items</h3>
-                    <ul class="admin-list">
-                        <li class="warning">Tripod Stand - Overdue by 2 days (Borrower: Vikram) <button onclick="flagUser()">Flag Borrower</button></li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
     </main>
 
-    <!-- Modal for Item Details & Fee Calculation -->
-    <div id="itemModal" class="modal">
+    <!-- Modals -->
+    <div class="modal-overlay" id="borrowModal">
         <div class="modal-content">
-            <span class="close-btn" onclick="closeModal()">&times;</span>
-            <div id="modalDetails">
-                <!-- Javascript will inject fee breakdown and condition checklist here -->
-            </div>
+            <span class="close-btn" onclick="closeBorrowModal()">&times;</span>
+            <div id="borrowModalDetails"></div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="createModal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeCreateModal()">&times;</span>
+            <h2>List Your Resource</h2>
+            <form onsubmit="handleCreateResource(event)">
+                <div class="form-group">
+                    <label for="newTitle">Resource Title</label>
+                    <input type="text" id="newTitle" required placeholder="e.g. DSLR Camera, Oscilloscope">
+                </div>
+                <div class="form-group">
+                    <label for="newCategory">Category</label>
+                    <select id="newCategory" required>
+                        <option value="electronics">Electronics & Hardware</option>
+                        <option value="academics">Academics & Textbooks</option>
+                        <option value="photography">Photography & Media</option>
+                        <option value="sports">Sports & Events</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="newMode">Exchange Mode</label>
+                    <select id="newMode" required onchange="toggleBarterInput(this.value)">
+                        <option value="rent">Rental (Fee based)</option>
+                        <option value="barter">Barter</option>
+                        <option value="donate">Free Donation</option>
+                    </select>
+                </div>
+                <div class="form-group" id="feeInputGroup">
+                    <label for="newFee">Daily Fee (₹)</label>
+                    <input type="number" id="newFee" value="50">
+                </div>
+                <div class="form-group" id="barterInputGroup" style="display: none;">
+                    <label for="newBarterPref">Preferred Barter</label>
+                    <input type="text" id="newBarterPref" placeholder="e.g. Logic Analyzer">
+                </div>
+                <div class="form-group">
+                    <label for="newImg">Image URL</label>
+                    <input type="url" id="newImg" placeholder="https://images.unsplash.com/...">
+                </div>
+                <button type="submit" class="btn-submit"><i class="fas fa-check-circle"></i> Publish Resource Listing</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="conditionModal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeConditionModal()">&times;</span>
+            <div id="conditionModalDetails"></div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="settlementModal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeSettlementModal()">&times;</span>
+            <div id="settlementModalDetails"></div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="communityReqModal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeCommunityReqModal()">&times;</span>
+            <h2>Post Resource Request</h2>
+            <form onsubmit="event.preventDefault(); alert('Request posted!'); closeCommunityReqModal();">
+                <div class="form-group">
+                    <label>Requested Item Name</label>
+                    <input type="text" required placeholder="e.g. GoPro Hero 11">
+                </div>
+                <button type="submit" class="btn-submit">Submit Request</button>
+            </form>
         </div>
     </div>
 
