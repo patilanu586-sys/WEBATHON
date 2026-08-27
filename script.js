@@ -368,85 +368,10 @@ function approveItem(buttonElement) {
     listItem.style.opacity = "0.5";
     buttonElement.textContent = "Approved ✓";
     buttonElement.disabled = true;
-    buttonElement.style.background = "#10b981";
+    buttonElement.style.background = "#21d096";
     buttonElement.style.color = "white";
 }
 
 function flagUser() {
     alert("User flagged. Overdue notices sent and 5 points deducted from campus trust score.");
 }
-/* ==========================================================================
-   INTERACTIVE ASCII MOUSE-TRAIL ANIMATION ENGINE
-   ========================================================================== */
-(function initASCIITrail() {
-    const canvas = document.getElementById('asciiCanvas');
-    if (!canvas) return;
-    
-    const ctx = canvas.getContext('2d');
-    
-    // Resize Canvas dynamically to match browser window
-    function resizeCanvas() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-    }
-    resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
-
-    // ASCII Character Palette & Active Particles Queue
-    const asciiChars = ["C", "A", "M", "P", "U", "S", "0", "1", "<", ">", "{", "}", "#", "/", "*", "X", "+"];
-    const particles = [];
-
-    // Track Mouse Coordinates
-    let mouse = { x: null, y: null };
-
-    window.addEventListener('mousemove', (e) => {
-        mouse.x = e.clientX;
-        mouse.y = e.clientY;
-
-        // Spawn 2-3 ASCII characters per mouse movement
-        for (let i = 0; i < 3; i++) {
-            particles.push({
-                x: mouse.x + (Math.random() * 30 - 15),
-                y: mouse.y + (Math.random() * 30 - 15),
-                char: asciiChars[Math.floor(Math.random() * asciiChars.length)],
-                size: Math.floor(Math.random() * 10) + 12, // Character font size
-                alpha: 1.0, // Initial opacity
-                speedY: (Math.random() - 0.5) * 1.5,
-                color: i % 2 === 0 ? '#818cf8' : '#10b981' // Alternates primary & secondary accents
-            });
-        }
-    });
-
-    // Render & Animate Loop
-    function animateASCII() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-        for (let i = 0; i < particles.length; i++) {
-            const p = particles[i];
-            
-            ctx.font = `700 ${p.size}px monospace`;
-            ctx.fillStyle = p.color;
-            ctx.globalAlpha = p.alpha;
-            
-            // Add subtle glow effect
-            ctx.shadowBlur = 8;
-            ctx.shadowColor = p.color;
-            
-            ctx.fillText(p.char, p.x, p.y);
-
-            // Update particle properties for smooth fade-out
-            p.y += p.speedY;
-            p.alpha -= 0.025; // Speed of fading
-
-            // Remove faded particles
-            if (p.alpha <= 0) {
-                particles.splice(i, 1);
-                i--;
-            }
-        }
-
-        requestAnimationFrame(animateASCII);
-    }
-
-    animateASCII();
-})();
